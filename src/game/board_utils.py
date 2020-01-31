@@ -2,10 +2,10 @@ from itertools import takewhile
 import copy
 import time
 
-EMPTY=-1
-PLAYER_1=0
-PLAYER_2=1
-TIE=5
+EMPTY=0
+PLAYER_1=1
+PLAYER_2=-1
+TIE=0
 WIN_BONUS=99999999
 
 def get_potentials(board, player):
@@ -215,8 +215,13 @@ def get_opponent(player):
 def invert(board):
     return [[PLAYER_1 if j == PLAYER_2 else (PLAYER_2 if j == PLAYER_1 else j) for j in i] for i in board]
 
-def normalize(board, player):
-    return board if player == PLAYER_1 else invert(board)
+def normalize(board, player1_color, player2_color, blank_color):
+    mapp = {
+        player1_color : PLAYER_1,
+        player2_color : PLAYER_2,
+        blank_color : EMPTY
+    }
+    return [[mapp.get(j) for j in i] for i in board]
 
 
 def get_final_result(board, player):
@@ -258,10 +263,6 @@ def apply_move(board, player, position):
     return board_shallow
 
 class Board(list):
-    PLAYER_1=0
-    PLAYER_2=1
-    EMPTY=-1
-    TIE=5
     def __init__(self, width = None, height = None, iterable = None):
         super(Board, self).__init__([] if iterable is None else iterable)
         

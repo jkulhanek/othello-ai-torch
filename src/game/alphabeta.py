@@ -66,8 +66,8 @@ def create_alphabeta_player(max_depth = 6, ranking_function = None, max_value = 
 
         return (alpha, best_move)
 
-    def alphabeta_player(board, moves, color):
-        res=alpha_beta(board, color) # butils.PLAYER_1)
+    def alphabeta_player(board, moves):
+        res=alpha_beta(board, butils.PLAYER_1)
         return res[1]
 
     return alphabeta_player

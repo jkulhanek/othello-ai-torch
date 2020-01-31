@@ -92,7 +92,7 @@ class ReversiCreator(object):
             p = multiprocessing.Process(target=self.get_player_move(q), args=(q,))
             p.start()
             # Wait for 1 second
-            p.join(1)
+            p.join(10)
             if p.is_alive():
                 print("running too long - killing it")
                 p.terminate()

@@ -7,16 +7,18 @@ def create_player(func, name = "Player"):
             self.name = name 
             self.my_color = my_color
             self.opponent_color = opponent_color
+            self.blank_color = -1
             #score in tournament
             self.total_score=0
  
         def move(self, board):
-            board_normal = butils.normalize(board, self.my_color)
+            board_normal = butils.normalize(board, self.my_color,self.opponent_color, self.blank_color)
+            print(board_normal)
             board_set = butils.Board(iterable = board_normal)
-            potentials = butils.get_potentials(board_set, self.my_color) #butils.PLAYER_1)
+            potentials = butils.get_potentials(board_set, butils.PLAYER_1)
 
             if len(potentials) == 0:
                 return False
             
-            return func(board = board_set, moves = potentials, color = butils.PLAYER_1) self.my_color)          
+            return func(board = board_set, moves = potentials)          
     return _Player
